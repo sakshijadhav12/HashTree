@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class MyMapNode<K, V>
 {
@@ -88,8 +89,8 @@ public class Program
 {
     public static void Main()
     {
-        string sentence = "To be or not to be";
-        string[] words = sentence.Split(' ');
+        string paragraph = "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
+        string[] words = paragraph.Split(' ');
 
         MyHashTable<string, int> wordFrequencyTable = new MyHashTable<string, int>(10);
 
@@ -99,7 +100,7 @@ public class Program
             wordFrequencyTable.Add(word, currentFrequency + 1);
         }
 
-        Console.WriteLine("Word Frequency in the sentence:");
+        Console.WriteLine("Word Frequency in the paragraph:");
         wordFrequencyTable.Display();
     }
 }
