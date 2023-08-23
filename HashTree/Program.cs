@@ -70,6 +70,33 @@ public class MyHashTable<K, V>
         buckets[bucketIndex].AddLast(newNode);
     }
 
+    public bool Remove(K key)
+    {
+        int bucketIndex = GetBucketIndex(key);
+        LinkedList<MyMapNode<K, V>> bucket = buckets[bucketIndex];
+        if (bucket != null)
+        {
+            MyMapNode<K, V> prev = null;
+            foreach (var node in bucket)
+            {
+                if (node.Key.Equals(key))
+                {
+                    if (prev == null)
+                    {
+                        buckets[bucketIndex].RemoveFirst();
+                    }
+                    else
+                    {
+                        prev.Next = node.Next;
+                    }
+                    return true;
+                }
+                prev = node;
+            }
+        }
+        return false;
+    }
+
     public void Display()
     {
         for (int i = 0; i < numBuckets; i++)
@@ -100,7 +127,20 @@ public class Program
             wordFrequencyTable.Add(word, currentFrequency + 1);
         }
 
-        Console.WriteLine("Word Frequency in the paragraph:");
+        Console.WriteLine("Word Frequency in the paragraph before removal:");
+        wordFrequencyTable.Display();
+
+        bool isRemoved = wordFrequencyTable.Remove("avoidable");
+        if (isRemoved)
+        {
+            Console.WriteLine("\nWord 'avoidable' has been removed from the paragraph.\n");
+        }
+        else
+        {
+            Console.WriteLine("\nWord 'avoidable' not found in the paragraph.\n");
+        }
+
+        Console.WriteLine("Word Frequency in the paragraph after removal:");
         wordFrequencyTable.Display();
     }
 }
